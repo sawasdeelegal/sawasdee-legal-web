@@ -28,7 +28,7 @@
       // (2) สร้าง OIDC Provider สำหรับ LINE
       // หากใน Firebase Console (Auth > OIDC) คุณตั้ง Provider ID = "line-legal"
       // => ในโค้ดต้องเรียก 'oidc.line'
-      const lineProvider = new firebase.auth.OAuthProvider('oidc.line');
+      const lineProvider = new firebase.auth.OAuthProvider('oidc.line-legal');
 
       // (3) กดปุ่ม => signInWithRedirect ไปหน้า LINE
       document.getElementById('lineLoginBtn').addEventListener('click', () => {
