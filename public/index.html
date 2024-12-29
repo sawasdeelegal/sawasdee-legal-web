@@ -8,41 +8,43 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   </head>
-
   <body>
     <h1>ทดสอบ LINE Login (sawasdee-legal)</h1>
     <button id="lineLoginBtn">Login with LINE</button>
 
     <script>
-      // 1) Firebase Config ของโปรเจ็กต์ sawasdee-legal
+      // (1) Firebase Config (ข้อมูลจริงต้องไปเอามาจาก "Project settings" ใน Firebase Console)
       const firebaseConfig = {
-        apiKey: "AIzaSyD-xxxxxxxxxxxxxxxxxxxxxxx",   // <-- เอาของจริงใน Firebase Console
+        apiKey: "AIzaSyD-xxxxxx_xxxxxxxxxxxxx",    // <---- แก้เป็นของจริง
         authDomain: "sawasdee-legal.firebaseapp.com",
         projectId: "sawasdee-legal",
         storageBucket: "sawasdee-legal.appspot.com",
-        messagingSenderId: "123456789012",            // <-- ใส่ค่าจริง
-        appId: "1:123456789012:web:abcdefg12345",     // <-- ใส่ค่าจริง
+        messagingSenderId: "808042372156",          // <---- ตัวอย่าง: แก้เป็นของจริง
+        appId: "1:808042372156:web:xxxxxxxxxxxx",   // <---- แก้เป็นของจริง
       };
+      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
 
-      // 2) เตรียม OIDC Provider (Provider ID = 'line' => 'oidc.line')
+      // (2) สร้าง OIDC Provider สำหรับ LINE
+      // หากใน Firebase Console (Auth > OIDC) คุณตั้ง Provider ID = "line"
+      // => ในโค้ดต้องเรียก 'oidc.line'
       const lineProvider = new firebase.auth.OAuthProvider('oidc.line');
 
-      // 3) กดปุ่ม -> สั่ง redirect ไป LINE
+      // (3) กดปุ่ม => signInWithRedirect ไปหน้า LINE
       document.getElementById('lineLoginBtn').addEventListener('click', () => {
         firebase.auth().signInWithRedirect(lineProvider);
       });
 
-      // 4) หลัง redirect กลับ -> getRedirectResult เพื่อตรวจสอบ user
+      // (4) หลัง Redirect กลับ => Firebase ประมวลผล => getRedirectResult()
       firebase.auth().getRedirectResult()
         .then((result) => {
           if (result.user) {
-            console.log("Login success:", result.user);
+            console.log("LINE Login success:", result.user);
             alert("Welcome, " + (result.user.displayName || "Line User"));
           }
         })
         .catch((error) => {
-          console.error("Login error:", error);
+          console.error("LINE Login error:", error);
         });
     </script>
   </body>
