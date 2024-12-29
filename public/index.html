@@ -1,10 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>My Firebase Hosting</title>
-</head>
-<body>
-  <h1>สวัสดีจาก Firebase Hosting (Deploy ผ่าน GitHub)!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>LINE Login with Firebase OIDC (sawasdee-legal)</title>
+
+    <!-- Firebase (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  </head>
+
+  <body>
+    <h1>ทดสอบ LINE Login (sawasdee-legal)</h1>
+    <button id="lineLoginBtn">Login with LINE</button>
+
+    <script>
+      // 1) Firebase Config ของโปรเจ็กต์ sawasdee-legal
+      const firebaseConfig = {
+        apiKey: "AIzaSyD-xxxxxxxxxxxxxxxxxxxxxxx",   // <-- เอาของจริงใน Firebase Console
+        authDomain: "sawasdee-legal.firebaseapp.com",
+        projectId: "sawasdee-legal",
+        storageBucket: "sawasdee-legal.appspot.com",
+        messagingSenderId: "123456789012",            // <-- ใส่ค่าจริง
+        appId: "1:123456789012:web:abcdefg12345",     // <-- ใส่ค่าจริง
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      // 2) เตรียม OIDC Provider (Provider ID = 'line' => 'oidc.line')
+      const lineProvider = new firebase.auth.OAuthProvider('oidc.line');
+
+      // 3) กดปุ่ม -> สั่ง redirect ไป LINE
+      document.getElementById('lineLoginBtn').addEventListener('click', () => {
+        firebase.auth().signInWithRedirect(lineProvider);
+      });
+
+      // 4) หลัง redirect กลับ -> getRedirectResult เพื่อตรวจสอบ user
+      firebase.auth().getRedirectResult()
+        .then((result) => {
+          if (result.user) {
+            console.log("Login success:", result.user);
+            alert("Welcome, " + (result.user.displayName || "Line User"));
+          }
+        })
+        .catch((error) => {
+          console.error("Login error:", error);
+        });
+    </script>
+  </body>
 </html>
