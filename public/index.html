@@ -15,18 +15,18 @@
     <script>
       // (1) Firebase Config (ข้อมูลจริงต้องไปเอามาจาก "Project settings" ใน Firebase Console)
       const firebaseConfig = {
-        apiKey: "AIzaSyD-xxxxxx_xxxxxxxxxxxxx",    // <---- แก้เป็นของจริง
+        apiKey: "AIzaSyC9fnCSU-2ujVPuvJFswDYu93GU_wgaTG8",    // <---- แก้เป็นของจริง
         authDomain: "sawasdee-legal.firebaseapp.com",
         projectId: "sawasdee-legal",
         storageBucket: "sawasdee-legal.appspot.com",
         messagingSenderId: "808042372156",          // <---- ตัวอย่าง: แก้เป็นของจริง
-        appId: "1:808042372156:web:xxxxxxxxxxxx",   // <---- แก้เป็นของจริง
+        appId: "1:808042372156:web:8d5d9a571cb6f6f7bd7739",   // <---- แก้เป็นของจริง
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
 
       // (2) สร้าง OIDC Provider สำหรับ LINE
-      // หากใน Firebase Console (Auth > OIDC) คุณตั้ง Provider ID = "line"
+      // หากใน Firebase Console (Auth > OIDC) คุณตั้ง Provider ID = "line-legal"
       // => ในโค้ดต้องเรียก 'oidc.line'
       const lineProvider = new firebase.auth.OAuthProvider('oidc.line');
 
